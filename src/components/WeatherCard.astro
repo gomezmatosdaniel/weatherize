@@ -1,29 +1,49 @@
 ---
-import { fetchWeather } from "../api/api";
+
 ---
 
 <div class="weatherCardContainer">
-    <span class="weatherCardTitle">Weatherize</span>
-    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvBityIZHfD7qLWbgLAeEnqptTIMNyIDPcZw&usqp=CAU" alt="">
-    <form id="weatherCardForm">
-        <input type="text" name="" id="ciudadInput" placeholder="Ciudad">
-        <button id="citySubmit" type="submit">Buscar</button>
-    </form>
-    <div id="dataWeatherContainer" style="display:none;">
+    <div id="landingWeatherize">
+        <img src="../../src/assets/landing-image.png" alt="">
+        <span class="weatherCardTitle">Weatherize</span>
+        <form id="weatherCardForm">
+            <input type="text" name="" id="ciudadInput" placeholder="Ciudad">
+            <button id="citySubmit" type="submit"></button>
+        </form>
+    </div>
+    <div id="dataWeatherContainer" class="dataWeatherContainer" style="display:none;">
+        <img id="weatherImg" src="#" alt="">
         <div class="dataContainer">
-            <span id="cityName"></span>
             <span id="cityTemperature"></span>
             <span id="weatherDescription"></span>
+            <span id="date"></span>
         </div>
     </div>
 </div>
 
 
 <style>
-    .weatherCardContainer{padding: 10px;max-width: 380px;margin:0 auto;background: #fff;box-shadow: rgb(85, 85, 85) 0px 3px 6px 0px;}
-    .weatherCardTitle{font: 600 18px 'Montserrat',sans-serif;margin-bottom: 20px;text-align: center;display: block;}
-    .weatherCardForm{margin-top: 20px;}
-    .dataContainer{display:flex;flex-direction:column;font: 16px 'Montserrat',sans-serif;}
+    .weatherCardContainer{padding: 10px;max-width: 380px;margin:0 auto;background: #f6f5fa;box-shadow: rgb(85, 85, 85) 0px 3px 6px 0px;min-height: 600px;border-radius: 12px;position: relative;}
+    #landingWeatherize{padding-top: 60%;}
+    #landingWeatherize img{height: 350px;position:absolute;top:-110px;right:0;}
+    .weatherCardTitle{font: 24px 'Montserrat',sans-serif;margin: 20px 0 50px 0;text-align: center;display: block;letter-spacing: 5px;}
+    #weatherCardForm{margin-top: 100px;position: relative;}
+    #weatherCardForm > input{background: transparent;border: 1px solid grey;border-radius: 12px;padding: 10px 15px;margin: 0 auto;display: block;font: 16px 'Montserrat',sans-serif;}
+    #weatherCardForm button{background: transparent;border: none;position: absolute;top: 50%;right: 40px;margin-top: -9px;cursor: pointer;}
+    #weatherCardForm button:after{content:'';border: solid black;border-width: 0 3px 3px 0;display: inline-block;padding: 3px;transform: rotate(-45deg);}
+    #weatherCardForm > input:focus{outline:none;}
+    .dataContainer{display:flex;flex-direction:column;font: 16px 'Montserrat',sans-serif;max-width: 310px;margin: 0 auto;}
+    .dataWeatherContainer{padding-top: 100%;position: relative;}
+    .dataWeatherContainer img{height: 350px;position:absolute;top:-110px;right:0;}
+    #cityTemperature{font-size: 54px;text-align: left;}
+    #weatherDescription{text-transform: capitalize;margin-top: 25px;text-align: left;font-size: 22px;letter-spacing: 5px;}
+    #date{font-weight: 300;text-align: left;font-size: 15px;margin-top: 10px;}
+</style>
+
+<style is:inline>
+    .pac-container .pac-item span{font:14px 'Montserrat',sans-serif;}
+    .pac-container:after{content:none;}
+    .
 </style>
 
 <script>
@@ -31,11 +51,29 @@ import { fetchWeather } from "../api/api";
     const ciudadInput = document.getElementById("ciudadInput");
     const citySubmit = document.getElementById("citySubmit");
 
-    const formWeather = document.getElementById("weatherCardForm");
+    const landingWeatherize = document.getElementById("landingWeatherize");
     const dataContainer = document.getElementById("dataWeatherContainer");
-    const cityName = document.getElementById("cityName");
     const weatherTemperature = document.getElementById("cityTemperature");
     const weatherDescription = document.getElementById("weatherDescription");
+    const date = document.getElementById("date");
+    const weatherImage = document.getElementById("weatherImg");
+    const input = document.getElementById('ciudadInput'); // Reemplaza 'tu-input' con el ID de tu campo de entrada
+    const autocomplete = new google.maps.places.Autocomplete(input);
+    let dateString = 'Mon Jan 12 00:00:00 GMT 2023';
+    dateString = new Date(dateString).toUTCString();
+    dateString = dateString.split(' ').slice(0, 4).join(' ');
+
+    function setImage(tmp){
+        if(tmp < 10){
+            return "../../src/assets/winter-image.png";
+        } else if(tmp > 25){
+            return "../../src/assets/sun-image.png";
+        } else if(weatherDescription.textContent.includes('lluvia')){
+            return "../../src/assets/rainy-image.png";
+        } else {
+            return "../../src/assets/winter-image.png";
+        }
+    }
 
     // Agregamos el evento click para el button
     citySubmit.addEventListener("click", function (e) {
@@ -47,10 +85,11 @@ import { fetchWeather } from "../api/api";
     fetchWeather(ciudad)
         .then((data) => {
         console.log(data);
-        cityName.textContent = data.name;
-        weatherTemperature.textContent = `Temperatura: ${Math.floor(data.main.temp - 273)}°C`;
+        weatherTemperature.textContent = `${Math.floor(data.main.temp - 273)} °C`;
         weatherDescription.textContent = data.weather[0].description ;
-        formWeather.style.display = "none";
+        date.textContent = dateString;
+        weatherImage.src = setImage(weatherTemperature.textContent);
+        landingWeatherize.style.display = "none";
         dataContainer.style.display = "block";
         })
         .catch((error) => {
