@@ -1,0 +1,47 @@
+---
+import { fetchWeather } from "../api/api";
+let cityExists = false;
+---
+
+<div class="weatherCardContainer">
+    <span class="weatherCardTitle">Weatherize</span>
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvBityIZHfD7qLWbgLAeEnqptTIMNyIDPcZw&usqp=CAU" alt="">
+    {cityExists ? (
+        <form class="weatherCardForm">
+            <input type="text" name="" id="ciudadInput" placeholder="Ciudad">
+            <button id="citySubmit" type="submit">Buscar</button>
+        </form>
+    ) : (
+        ''
+    )}
+</div>
+
+
+<style>
+    .weatherCardContainer{padding: 10px;max-width: 380px;margin:0 auto;background: #fff;box-shadow: rgb(85, 85, 85) 0px 3px 6px 0px;}
+    .weatherCardTitle{font: 600 18px 'Montserrat',sans-serif;margin-bottom: 20px;text-align: center;display: block;}
+    .weatherCardForm{margin-top: 20px;}
+</style>
+
+<script>
+    import { fetchWeather } from "../api/api";
+    const ciudadInput = document.getElementById("ciudadInput");
+    const citySubmit = document.getElementById("citySubmit");
+
+    // Agregamos el evento click para el button
+    citySubmit.addEventListener("click", function (e) {
+    e.preventDefault();
+    // Obtén el valor actual del campo de entrada de texto
+    const ciudad = ciudadInput.value;
+    
+    // Llama a la función fetchWeather con el valor de la ciudad
+    fetchWeather(ciudad)
+        .then((data) => {
+        console.log(data);
+        
+        })
+        .catch((error) => {
+        console.error(error);
+        });
+    });
+</script>

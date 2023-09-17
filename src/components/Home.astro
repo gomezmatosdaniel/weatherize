@@ -1,0 +1,22 @@
+---
+import WeatherCard from '../components/WeatherCard.astro';
+const title = 'Pronóstico del Tiempo';
+---
+
+
+<section>
+  <h1>{title}</h1>
+
+  <WeatherCard />
+</section>
+
+<style>
+    section {
+      text-align: center;
+      padding: 20px;
+    }
+    h1 {
+      font-size: 24px;
+      color: #fff;
+    }
+</style>
