@@ -1,19 +1,21 @@
 ---
 import { fetchWeather } from "../api/api";
-let cityExists = false;
 ---
 
 <div class="weatherCardContainer">
     <span class="weatherCardTitle">Weatherize</span>
     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvBityIZHfD7qLWbgLAeEnqptTIMNyIDPcZw&usqp=CAU" alt="">
-    {cityExists ? (
-        <form class="weatherCardForm">
-            <input type="text" name="" id="ciudadInput" placeholder="Ciudad">
-            <button id="citySubmit" type="submit">Buscar</button>
-        </form>
-    ) : (
-        ''
-    )}
+    <form id="weatherCardForm">
+        <input type="text" name="" id="ciudadInput" placeholder="Ciudad">
+        <button id="citySubmit" type="submit">Buscar</button>
+    </form>
+    <div id="dataWeatherContainer" style="display:none;">
+        <div class="dataContainer">
+            <span id="cityName"></span>
+            <span id="cityTemperature"></span>
+            <span id="weatherDescription"></span>
+        </div>
+    </div>
 </div>
 
 
@@ -21,12 +23,19 @@ let cityExists = false;
     .weatherCardContainer{padding: 10px;max-width: 380px;margin:0 auto;background: #fff;box-shadow: rgb(85, 85, 85) 0px 3px 6px 0px;}
     .weatherCardTitle{font: 600 18px 'Montserrat',sans-serif;margin-bottom: 20px;text-align: center;display: block;}
     .weatherCardForm{margin-top: 20px;}
+    .dataContainer{display:flex;flex-direction:column;font: 16px 'Montserrat',sans-serif;}
 </style>
 
 <script>
     import { fetchWeather } from "../api/api";
     const ciudadInput = document.getElementById("ciudadInput");
     const citySubmit = document.getElementById("citySubmit");
+
+    const formWeather = document.getElementById("weatherCardForm");
+    const dataContainer = document.getElementById("dataWeatherContainer");
+    const cityName = document.getElementById("cityName");
+    const weatherTemperature = document.getElementById("cityTemperature");
+    const weatherDescription = document.getElementById("weatherDescription");
 
     // Agregamos el evento click para el button
     citySubmit.addEventListener("click", function (e) {
@@ -38,7 +47,11 @@ let cityExists = false;
     fetchWeather(ciudad)
         .then((data) => {
         console.log(data);
-        
+        cityName.textContent = data.name;
+        weatherTemperature.textContent = `Temperatura: ${Math.floor(data.main.temp - 273)}°C`;
+        weatherDescription.textContent = data.weather[0].description ;
+        formWeather.style.display = "none";
+        dataContainer.style.display = "block";
         })
         .catch((error) => {
         console.error(error);
