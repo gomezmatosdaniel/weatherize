@@ -1,3 +1,6 @@
+.vscode
+.env
+
 # build output
 dist/
 
