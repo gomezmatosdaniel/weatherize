@@ -9,6 +9,7 @@
             <input type="text" name="" id="ciudadInput" placeholder="Ciudad">
             <button id="citySubmit" type="submit"></button>
         </form>
+        <span class="errorsContainer">No se ha encontrado la ciudad</span>
     </div>
     <div id="dataWeatherContainer" class="dataWeatherContainer" style="display:none;">
         <img id="weatherImg" src="#" alt="">
@@ -17,6 +18,7 @@
             <span id="weatherDescription"></span>
             <span id="date"></span>
         </div>
+        <button class="goBack">Volver</button>
     </div>
 </div>
 
@@ -31,12 +33,19 @@
     #weatherCardForm button{background: transparent;border: none;position: absolute;top: 50%;right: 40px;margin-top: -9px;cursor: pointer;}
     #weatherCardForm button:after{content:'';border: solid black;border-width: 0 3px 3px 0;display: inline-block;padding: 3px;transform: rotate(-45deg);}
     #weatherCardForm > input:focus{outline:none;}
+    .errorsContainer{color:#c00;font:600 13px 'Montserrat',sans-serif;display:none;margin-top: 30px;}
     .dataContainer{display:flex;flex-direction:column;font: 16px 'Montserrat',sans-serif;max-width: 310px;margin: 0 auto;}
-    .dataWeatherContainer{padding-top: 100%;position: relative;}
+    .dataWeatherContainer{padding-top: 340px;position: relative;}
     .dataWeatherContainer img{height: 350px;position:absolute;top:-110px;right:0;}
     #cityTemperature{font-size: 54px;text-align: left;}
     #weatherDescription{text-transform: capitalize;margin-top: 25px;text-align: left;font-size: 22px;letter-spacing: 5px;}
     #date{font-weight: 300;text-align: left;font-size: 15px;margin-top: 10px;}
+    .goBack{max-width: 300px;margin: 40px auto 0 auto;background: #bbb4b4;color:#fff;font: 14px 'Montserrat',sans-serif;padding:10px 20px;border:none;display: block;position: relative;cursor: pointer;}
+    .goBack:hover{background: #000;transition: background .3s;}
+    .goBack:before{border-color: #bbb4b4;border-style: solid;border-width: 0 0 2px 2px;content: "";display: block;height: 6px;left: -20px;position: absolute;width: 6px;margin-top: -3px;top: 50%;transition: left 0.1s;transform: rotate( 45deg );}
+    .goBack:after{background: #bbb4b4;content: "";display: block;height: 2px;left:-20px;position: absolute;top: 50%;width: 11px;transition: left 0.1s;}
+    .goBack:hover:after{background:#000;transition: background .3s}
+    .goBack:hover:before{border-color:#000;transition: border .3s}
 </style>
 
 <style is:inline>
@@ -48,6 +57,8 @@
     import { fetchWeather } from "../api/api";
     const ciudadInput = document.getElementById("ciudadInput");
     const citySubmit = document.getElementById("citySubmit");
+    const errorsContainer = document.querySelector('.errorsContainer');
+    const btnBack = document.querySelector('.goBack');
 
     const landingWeatherize = document.getElementById("landingWeatherize");
     const dataContainer = document.getElementById("dataWeatherContainer");
@@ -64,9 +75,9 @@
     function setImage(tmp){
         if(tmp < 10){
             return "/assets/winter-image.png";
-        } else if(tmp > 25){
+        } else if(tmp >= 20){
             return "/assets/sun-image.png";
-        } else if(weatherDescription.textContent.includes('lluvia')){
+        } else if(weatherDescription.textContent.includes('lluvia' || 'chubasco')){
             return "/assets/rainy-image.png";
         } else {
             return "/assets/winter-image.png";
@@ -77,7 +88,7 @@
     citySubmit.addEventListener("click", function (e) {
     e.preventDefault();
     // Obtén el valor actual del campo de entrada de texto
-    const ciudad = ciudadInput.value;
+    const ciudad = ciudadInput.value.normalize('NFD').replace(/[\u0300-\u036f]/g, '') || ciudadInput.value;
     
     // Llamamos a la función fetchWeather con el valor de la ciudad
     fetchWeather(ciudad)
@@ -85,12 +96,18 @@
         weatherTemperature.textContent = `${Math.floor(data.main.temp - 273)} °C`;
         weatherDescription.textContent = data.weather[0].description ;
         date.textContent = dateString;
-        weatherImage.src = setImage(weatherTemperature.textContent);
+        weatherImage.src = setImage(Math.floor(data.main.temp - 273));
         landingWeatherize.style.display = "none";
         dataContainer.style.display = "block";
         })
         .catch((error) => {
-        console.error(error);
+            console.error(error);
+            errorsContainer.style.display = "block";
         });
+    });
+
+    btnBack.addEventListener('click', function() {
+        landingWeatherize.style.display = "block";
+        dataContainer.style.display = "none";
     });
 </script>
