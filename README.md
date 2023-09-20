@@ -1,10 +1,8 @@
 # Weatherize
 
-[![Open in Netlify](https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Netlify_logo.svg/1200px-Netlify_logo.svg.png)](https://weatherizeastro.netlify.app/)
+## [👉🏽Live demo](https://weatherizeastro.netlify.app/)
 
-[👉🏽Live demo](https://weatherizeastro.netlify.app/)
-
-> **Pequeña aplicación del tiempo para probar bun y Astro a la vez** 
+> **Pequeña aplicación del tiempo para probar bun y Astro a la vez**
 ![image](https://github.com/gomezmatosdaniel/weatherize/assets/65901016/b01fa500-4719-41f2-87b4-1f3807fc56a0)
 
 ## Instalación del Proyecto
