@@ -3,7 +3,7 @@
 
 <div class="weatherCardContainer">
     <div id="landingWeatherize">
-        <img src="/src/assets/landing-image.png" alt="">
+        <img src="/assets/landing-image.png" alt="">
         <span class="weatherCardTitle">Weatherize</span>
         <form id="weatherCardForm">
             <input type="text" name="" id="ciudadInput" placeholder="Ciudad">
@@ -64,13 +64,13 @@
 
     function setImage(tmp){
         if(tmp < 10){
-            return "/src/assets/winter-image.png";
+            return "/assets/winter-image.png";
         } else if(tmp > 25){
-            return "/src/assets/sun-image.png";
+            return "/assets/sun-image.png";
         } else if(weatherDescription.textContent.includes('lluvia')){
-            return "/src/assets/rainy-image.png";
+            return "/assets/rainy-image.png";
         } else {
-            return "/src/assets/winter-image.png";
+            return "/assets/winter-image.png";
         }
     }
 
