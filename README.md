@@ -19,6 +19,9 @@
 │   └── pages/
 │   │    └── index.astro
 │   └── api/
-│        └── api.js
+│   │    └── api.js
+│   └── assets/
+│        └── imgs*        
+│
 └── package.json
 ```
