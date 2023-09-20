@@ -1,5 +1,4 @@
 export async function fetchWeather(city) {
-  console.log(import.meta.env.ASTRO_WEATHER_API);
   const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${import.meta.env.ASTRO_WEATHER_API}&lang=es`;
   try {
     const response = await fetch(apiUrl);
