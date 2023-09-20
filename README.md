@@ -5,7 +5,7 @@
 > **Pequeña aplicación del tiempo para probar bun y Astro a la vez** 
 
 
-## Instalación del Protecto
+## Instalación del Proyecto
 
 > Yo uso bun para instalar la app
 
