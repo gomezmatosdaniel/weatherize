@@ -10,6 +10,8 @@
 /
 ├── public/
 │   └── favicon.svg
+│   └── assets/
+│        └── imgs* 
 ├── src/
 │   ├── components/
 │   │   └── Home.astro
@@ -19,9 +21,6 @@
 │   └── pages/
 │   │    └── index.astro
 │   └── api/
-│   │    └── api.js
-│   └── assets/
-│        └── imgs*        
-│
+│        └── api.js
 └── package.json
 ```
