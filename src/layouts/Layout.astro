@@ -4,10 +4,11 @@ interface Props {
 }
 
 const { title } = Astro.props;
+const mapsApi = import.meta.env.PUBLIC_MAPS_API;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="es">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="description" content="Astro description" />
@@ -15,7 +16,7 @@ const { title } = Astro.props;
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
-		<script src=`https://maps.googleapis.com/maps/api/js?key=${import.meta.env.PUBLIC_MAPS_API}&libraries=places`></script>
+		<script define:vars={{mapsApi: mapsApi}} src=`https://maps.googleapis.com/maps/api/js?key=${mapsApi}&libraries=places`></script>
 	</head>
 	<body>
 		<slot />

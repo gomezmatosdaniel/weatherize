@@ -84,7 +84,6 @@
     // Llama a la función fetchWeather con el valor de la ciudad
     fetchWeather(ciudad)
         .then((data) => {
-        console.log(data);
         weatherTemperature.textContent = `${Math.floor(data.main.temp - 273)} °C`;
         weatherDescription.textContent = data.weather[0].description ;
         date.textContent = dateString;
