@@ -17,6 +17,8 @@
 │   ├── layouts/
 │   │   └── Layout.astro
 │   └── pages/
-│       └── index.astro
+│   │    └── index.astro
+│   └── api/
+│        └── api.js
 └── package.json
 ```
