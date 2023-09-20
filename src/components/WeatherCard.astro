@@ -42,7 +42,6 @@
 <style is:inline>
     .pac-container .pac-item span{font:14px 'Montserrat',sans-serif;}
     .pac-container:after{content:none;}
-    .
 </style>
 
 <script>
@@ -56,7 +55,7 @@
     const weatherDescription = document.getElementById("weatherDescription");
     const date = document.getElementById("date");
     const weatherImage = document.getElementById("weatherImg");
-    const input = document.getElementById('ciudadInput'); // Reemplaza 'tu-input' con el ID de tu campo de entrada
+    const input = document.getElementById('ciudadInput');
     const autocomplete = new google.maps.places.Autocomplete(input);
     let dateString = 'Mon Jan 12 00:00:00 GMT 2023';
     dateString = new Date(dateString).toUTCString();
@@ -80,7 +79,7 @@
     // Obtén el valor actual del campo de entrada de texto
     const ciudad = ciudadInput.value;
     
-    // Llama a la función fetchWeather con el valor de la ciudad
+    // Llamamos a la función fetchWeather con el valor de la ciudad
     fetchWeather(ciudad)
         .then((data) => {
         weatherTemperature.textContent = `${Math.floor(data.main.temp - 273)} °C`;
