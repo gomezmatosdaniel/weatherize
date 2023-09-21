@@ -26,7 +26,7 @@
 ├── src/
 │   ├── components/
 │   │   └── Home.astro
-    │   └── WeatherCard.astro
+│   │   └── WeatherCard.astro
 │   ├── layouts/
 │   │   └── Layout.astro
 │   └── pages/
