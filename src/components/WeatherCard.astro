@@ -25,12 +25,13 @@
 
 <style>
     .weatherCardContainer{padding: 10px;max-width: 380px;margin:0 auto;background: #f6f5fa;box-shadow: rgb(85, 85, 85) 0px 3px 6px 0px;min-height: 600px;border-radius: 12px;position: relative;}
+    @media (max-width: 601px){.weatherCardContainer{min-height: 540px;}}
     #landingWeatherize{padding-top: 60%;}
     #landingWeatherize img{height: 350px;position:absolute;top:-110px;right:0;}
     .weatherCardTitle{font: 24px 'Montserrat',sans-serif;margin: 40px 0 50px 0;text-align: center;display: block;letter-spacing: 5px;}
     #weatherCardForm{margin-top: 100px;position: relative;}
     #weatherCardForm > input{background: transparent;border: 1px solid grey;border-radius: 12px;padding: 10px 15px;margin: 0 auto;display: block;font: 16px 'Montserrat',sans-serif;}
-    #weatherCardForm button{background: transparent;border: none;position: absolute;top: 50%;right: 40px;margin-top: -9px;cursor: pointer;}
+    #weatherCardForm button{background: transparent;border: none;position: absolute;top: 50%;right: 50px;margin-top: -9px;cursor: pointer;}
     #weatherCardForm button:after{content:'';border: solid black;border-width: 0 3px 3px 0;display: inline-block;padding: 3px;transform: rotate(-45deg);}
     #weatherCardForm > input:focus{outline:none;}
     .errorsContainer{color:#c00;font:600 13px 'Montserrat',sans-serif;display:none;margin-top: 30px;}
